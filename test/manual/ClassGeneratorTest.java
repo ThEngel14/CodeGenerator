@@ -1,5 +1,7 @@
 package manual;
 
+import java.io.File;
+
 import org.junit.Test;
 
 import generator.CodeGenerator;
@@ -16,12 +18,13 @@ import model.Variable;
 import model.imports.ClassImport;
 import model.imports.ImportItem;
 import model.imports.PackageImport;
+import writer.Writer;
 
 public class ClassGeneratorTest {
 
 	@Test
 	public void testClassGenerator() {
-		Package _package = new Package("model", "test");
+		Package _package = new Package("data", "generated");
 		Class c = new Class(_package, Modifier.PUBLIC, "TestClass");
 
 		Class superClass = new Class(new Package("model"), Modifier.PUBLIC, "Variable");
@@ -48,7 +51,6 @@ public class ClassGeneratorTest {
 		c.setMethods(methods);
 
 		CodeGenerator generator = new JavaGenerator();
-		System.out.println("Generated java code:\n");
-		System.out.println(generator.generateClassCode(0, c));
+		Writer.writeFile(new File(System.getProperty("user.dir") + File.separator + "test"), c, generator);
 	}
 }

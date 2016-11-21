@@ -14,6 +14,11 @@ import model.imports.ImportItem;
 public class JavaGenerator implements CodeGenerator {
 
 	@Override
+	public String getFileExtension() {
+		return ".java";
+	}
+
+	@Override
 	public String generatePackageCode(int level, Package _package) {
 		return String.format("%s%s %s;", GeneratorUtil.generateIndent(level), GeneratorUtil.PACKAGE,
 				_package.getCompleteString());

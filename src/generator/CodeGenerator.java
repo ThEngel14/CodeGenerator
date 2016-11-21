@@ -8,6 +8,8 @@ import model.Parameter;
 import model.imports.ImportItem;
 
 public interface CodeGenerator {
+	String getFileExtension();
+
 	String generatePackageCode(int level, Package _package);
 
 	String generateImportCode(int level, ImportItem importItem);
