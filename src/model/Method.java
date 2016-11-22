@@ -10,6 +10,7 @@ public class Method {
 	private boolean _final;
 	private String name;
 	private Parameter[] parameter;
+	private boolean hasBody;
 	private String[] body;
 
 	public Method(Modifier modifier, Type returnType, String name, Parameter... parameters) {
@@ -17,6 +18,7 @@ public class Method {
 		this.returnType = returnType;
 		this.name = name;
 		this.parameter = parameters;
+		hasBody = true;
 		body = null;
 		_abstract = false;
 		_static = false;
@@ -79,6 +81,14 @@ public class Method {
 		this.parameter = parameter;
 	}
 
+	public boolean hasBody() {
+		return hasBody;
+	}
+
+	public void setHasBody(boolean hasBody) {
+		this.hasBody = hasBody;
+	}
+
 	public String[] getBody() {
 		return body;
 	}
@@ -91,10 +101,11 @@ public class Method {
 	public boolean equals(Object obj) {
 		if (obj instanceof Method) {
 			Method method = (Method) obj;
-			return modifier.equals(method.getModifier()) && EqualsUtil.equals(returnType, method.getReturnType())
+			return EqualsUtil.equals(modifier, method.getModifier())
+					&& EqualsUtil.equals(returnType, method.getReturnType())
 					&& _abstract == method.isAbstract() && _static == method.isStatic() && _final == method.isFinal()
 					&& name.equals(method.getName()) && EqualsUtil.equals(parameter, method.getParameter())
-					&& EqualsUtil.equals(body, method.getBody());
+					&& hasBody == method.hasBody() && EqualsUtil.equals(body, method.getBody());
 		}
 
 		return false;
@@ -102,6 +113,6 @@ public class Method {
 
 	@Override
 	public int hashCode() {
-		return modifier.hashCode() * (returnType != null ? returnType.hashCode() : 1) * name.hashCode();
+		return (returnType != null ? returnType.hashCode() : 1) * name.hashCode();
 	}
 }

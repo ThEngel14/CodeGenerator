@@ -1,9 +1,13 @@
-package model;
+package model.writable;
 
+import model.Field;
+import model.Method;
+import model.Modifier;
+import model.Package;
 import model.imports.ImportItem;
 import model.util.EqualsUtil;
 
-public class Class {
+public class Class implements Writable {
 	private Package _package;
 	private ImportItem[] importItems;
 	private Modifier modifier;
@@ -24,6 +28,7 @@ public class Class {
 		methods = null;
 	}
 
+	@Override
 	public Package getPackage() {
 		return _package;
 	}
@@ -32,6 +37,7 @@ public class Class {
 		this._package = _package;
 	}
 
+	@Override
 	public ImportItem[] getImportItems() {
 		return importItems;
 	}
@@ -48,6 +54,7 @@ public class Class {
 		this.modifier = modifier;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}

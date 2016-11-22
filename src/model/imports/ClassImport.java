@@ -1,6 +1,6 @@
 package model.imports;
 
-import model.Class;
+import model.writable.Class;
 
 public class ClassImport implements ImportItem {
 	private Class _class;

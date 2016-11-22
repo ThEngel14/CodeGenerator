@@ -3,13 +3,14 @@ package generator;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import model.Class;
 import model.Field;
-import model.Interface;
 import model.Method;
 import model.Package;
 import model.Parameter;
 import model.imports.ImportItem;
+import model.writable.Class;
+import model.writable.Interface;
+import model.writable.Writable;
 
 public class JavaGenerator implements CodeGenerator {
 
@@ -59,7 +60,9 @@ public class JavaGenerator implements CodeGenerator {
 	public String generateMethodCode(int level, Method method) {
 		String result = GeneratorUtil.generateIndent(level);
 
-		result += method.getModifier().getName() + " ";
+		if (method.getModifier() != null) {
+			result += method.getModifier().getName() + " ";
+		}
 		if (method.isAbstract()) {
 			result += GeneratorUtil.ABSTRACT + " ";
 		}
@@ -80,7 +83,7 @@ public class JavaGenerator implements CodeGenerator {
 		result += String.format("%s(%s)", method.getName(),
 				String.join(", ", prepParameters));
 
-		if (method.isAbstract()) {
+		if (method.isAbstract() || !method.hasBody()) {
 			result += GeneratorUtil.SEMICOLON;
 		} else {
 			result += " {" + GeneratorUtil.NEW_LINE;
@@ -91,50 +94,31 @@ public class JavaGenerator implements CodeGenerator {
 		return result;
 	}
 
-	private String generateMethodBodyCode(int level, String... body) {
-		if (body == null) {
-			return GeneratorUtil.generateIndent(level) + GeneratorUtil.TODO_PLACEHOLDER + GeneratorUtil.NEW_LINE;
+	private String generateMultipleMethodCode(int level, Method... methods) {
+		if (methods == null || methods.length == 0) {
+			return null;
 		}
 
-		String bodyString = "";
-		for (String b : body) {
-			bodyString += GeneratorUtil.generateIndent(level) + b + GeneratorUtil.NEW_LINE;
+		Collection<String> methodsString = new ArrayList<>(methods.length);
+		for (Method m : methods) {
+			methodsString.add(generateMethodCode(level, m));
 		}
 
-		return bodyString;
+		return String.join(GeneratorUtil.NEW_LINE + GeneratorUtil.NEW_LINE, methodsString);
 	}
 
 	@Override
 	public String generateClassCode(int level, Class _class) {
-		// Package
-		String result = GeneratorUtil.generateIndent(level);
-		result += GeneratorUtil.PACKAGE + " " + _class.getPackage().getCompleteString() + GeneratorUtil.SEMICOLON
-				+ GeneratorUtil.NEW_LINE;
-
-		result += GeneratorUtil.NEW_LINE;
-
-		// Imports
-		if (_class.getImportItems() != null) {
-			for (ImportItem i : _class.getImportItems()) {
-				result += GeneratorUtil.generateIndent(level) + GeneratorUtil.IMPORT + " " + i.getCompleteImport()
-						+ GeneratorUtil.SEMICOLON + GeneratorUtil.NEW_LINE;
-			}
-		}
-		
-		result += GeneratorUtil.NEW_LINE;
+		String result = generateWritableHeader(0, _class);
 		
 		// Class
 		result += _class.getModifier().getName() + " " + GeneratorUtil.CLASS + " " + _class.getName() + " ";
 		if(_class.getSuperClass() != null) {
 			result += GeneratorUtil.EXTENDS + " " + _class.getSuperClass().getName() + " ";
 		}
-		if(_class.getInterfaces() != null && _class.getInterfaces().length > 0) {
-			Collection<String> prepInterfaces = new ArrayList<>(_class.getInterfaces().length);
-			for(Interface i : _class.getInterfaces()) {
-				prepInterfaces.add(i.getName());
-			}
-			
-			result += GeneratorUtil.IMPLEMENTS + " " + String.join(", ", prepInterfaces) + " ";
+		String prepInterfaces = generatePreparedInterfacesString(_class.getInterfaces());
+		if (prepInterfaces != null) {
+			result += GeneratorUtil.IMPLEMENTS + " " + prepInterfaces + " ";
 		}
 		result += "{" + GeneratorUtil.NEW_LINE;
 		
@@ -148,16 +132,81 @@ public class JavaGenerator implements CodeGenerator {
 		result += GeneratorUtil.NEW_LINE;
 		
 		// Methods
-		if (_class.getMethods() != null && _class.getMethods().length > 0) {
-			for (Method m : _class.getMethods()) {
-				result += generateMethodCode(level + 1, m) + GeneratorUtil.NEW_LINE;
-				result += GeneratorUtil.NEW_LINE;
-			}
-		}
+		result += generateMultipleMethodCode(level + 1, _class.getMethods());
+		result += GeneratorUtil.NEW_LINE;
 		
 		result += GeneratorUtil.generateIndent(level) + "}";
 		// end Class
 
 		return result;
+	}
+
+	@Override
+	public String generateInterfaceCode(int level, Interface _interface) {
+		String result = generateWritableHeader(0, _interface);
+
+		// Interface
+		result += _interface.getModifier().getName() + " " + GeneratorUtil.INTERFACE + " " + _interface.getName() + " ";
+		String prepInterfaces = generatePreparedInterfacesString(_interface.getInterfaces());
+		if (prepInterfaces != null) {
+			result += GeneratorUtil.EXTENDS + " " + prepInterfaces + " ";
+		}
+		result += "{" + GeneratorUtil.NEW_LINE;
+
+		// Methods
+		result += generateMultipleMethodCode(level + 1, _interface.getMethods());
+		result += GeneratorUtil.NEW_LINE;
+
+		result += GeneratorUtil.generateIndent(level) + "}";
+		// end Interface
+
+		return result;
+	}
+
+	private String generateWritableHeader(int level, Writable writable) {
+		// Package
+		String result = GeneratorUtil.generateIndent(level);
+		result += GeneratorUtil.PACKAGE + " " + writable.getPackage().getCompleteString() + GeneratorUtil.SEMICOLON
+				+ GeneratorUtil.NEW_LINE;
+
+		result += GeneratorUtil.NEW_LINE;
+
+		// Imports
+		if (writable.getImportItems() != null && writable.getImportItems().length > 0) {
+			for (ImportItem i : writable.getImportItems()) {
+				result += GeneratorUtil.generateIndent(level) + GeneratorUtil.IMPORT + " " + i.getCompleteImport()
+						+ GeneratorUtil.SEMICOLON + GeneratorUtil.NEW_LINE;
+			}
+		}
+
+		result += GeneratorUtil.NEW_LINE;
+
+		return result;
+	}
+
+	private String generatePreparedInterfacesString(Interface... interfaces) {
+		if (interfaces == null || interfaces.length == 0) {
+			return null;
+		}
+		
+		Collection<String> prepInterfaces = new ArrayList<>(interfaces.length);
+		for (Interface i : interfaces) {
+			prepInterfaces.add(i.getName());
+		}
+
+		return String.join(", ", prepInterfaces);
+	}
+
+	private String generateMethodBodyCode(int level, String... body) {
+		if (body == null) {
+			return GeneratorUtil.generateIndent(level) + GeneratorUtil.TODO_PLACEHOLDER + GeneratorUtil.NEW_LINE;
+		}
+
+		String bodyString = "";
+		for (String b : body) {
+			bodyString += GeneratorUtil.generateIndent(level) + b + GeneratorUtil.NEW_LINE;
+		}
+
+		return bodyString;
 	}
 }
