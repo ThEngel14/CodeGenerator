@@ -75,13 +75,16 @@ public class Interface implements Writable {
 		this.methods = methods;
 	}
 
+	public boolean equalContent(Interface i) {
+		return EqualsUtil.equals(_package, i.getPackage()) && EqualsUtil.equals(importItems, i.getImportItems())
+					&& modifier.equals(i.getModifier()) && name.equals(i.getName())
+					&& EqualsUtil.equals(interfaces, i.getInterfaces()) && EqualsUtil.equals(methods, i.getMethods());
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Interface) {
-			Interface i = (Interface) obj;
-			return _package.equals(i.getPackage()) && EqualsUtil.equals(importItems, i.getImportItems())
-					&& modifier.equals(i.getModifier()) && name.equals(i.getName())
-					&& EqualsUtil.equals(interfaces, i.getInterfaces()) && EqualsUtil.equals(methods, i.getMethods());
+			return getFullName().equals(((Interface) obj).getFullName());
 		}
 
 		return false;
@@ -89,6 +92,6 @@ public class Interface implements Writable {
 
 	@Override
 	public int hashCode() {
-		return _package.hashCode() * name.hashCode();
+		return getFullName().hashCode();
 	}
 }

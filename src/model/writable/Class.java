@@ -1,7 +1,7 @@
 package model.writable;
 
-import model.ItemDescriptor;
 import model.Field;
+import model.ItemDescriptor;
 import model.Method;
 import model.Modifier;
 import model.Package;
@@ -96,16 +96,19 @@ public class Class implements Writable, Comparable<Class> {
 		this.methods = methods;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof Class) {
-			Class c = (Class) obj;
-			return _package.equals(c.getPackage()) && name.equals(c.getName())
+	public boolean equalContent(Class c) {
+		return EqualsUtil.equals(_package, c.getPackage()) && name.equals(c.getName())
 					&& EqualsUtil.equals(importItems, c.getImportItems())
 					&& modifier.equals(c.getModifier())
 					&& EqualsUtil.equals(superClass, c.getSuperClass())
 					&& EqualsUtil.equals(interfaces, c.getInterfaces()) && EqualsUtil.equals(fields, fields)
 					&& EqualsUtil.equals(methods, c.getMethods());
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Class) {
+			return getFullName().equals(((Class) obj).getFullName());
 		}
 
 		return false;
@@ -113,11 +116,7 @@ public class Class implements Writable, Comparable<Class> {
 
 	@Override
 	public int hashCode() {
-		return _package.hashCode() * name.hashCode();
-	}
-
-	public String getFullName() {
-		return String.format("%s.%s", _package.getCompleteString(), name);
+		return getFullName().hashCode();
 	}
 
 	@Override

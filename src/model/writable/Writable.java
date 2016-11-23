@@ -9,4 +9,11 @@ public interface Writable {
 	ImportItem[] getImportItems();
 
 	String getName();
+
+	default String getFullName() {
+		if (getPackage() == null) {
+			return getName();
+		}
+		return String.format("%s.%s", getPackage().getCompleteString(), getName());
+	}
 }

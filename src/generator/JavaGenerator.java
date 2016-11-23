@@ -88,7 +88,9 @@ public class JavaGenerator implements CodeGenerator {
 			result += GeneratorUtil.SEMICOLON;
 		} else {
 			result += " {" + GeneratorUtil.NEW_LINE;
-			result += generateMethodBodyCode(level + 1, method.getBody());
+			if (method.getBody() != null && method.getBody().length > 0) {
+				result += generateMethodBodyCode(level + 1, method.getBody());
+			}
 			result += GeneratorUtil.generateIndent(level) + "}";
 		}
 
@@ -167,10 +169,13 @@ public class JavaGenerator implements CodeGenerator {
 	private String generateWritableHeader(int level, Writable writable) {
 		// Package
 		String result = GeneratorUtil.generateIndent(level);
-		result += GeneratorUtil.PACKAGE + " " + writable.getPackage().getCompleteString() + GeneratorUtil.SEMICOLON
-				+ GeneratorUtil.NEW_LINE;
 
-		result += GeneratorUtil.NEW_LINE;
+		if (writable.getPackage() != null) {
+			result += GeneratorUtil.PACKAGE + " " + writable.getPackage().getCompleteString() + GeneratorUtil.SEMICOLON
+				+ GeneratorUtil.NEW_LINE;
+			result += GeneratorUtil.NEW_LINE;
+		}
+
 
 		// Imports
 		if (writable.getImportItems() != null && writable.getImportItems().length > 0) {
@@ -178,9 +183,9 @@ public class JavaGenerator implements CodeGenerator {
 				result += GeneratorUtil.generateIndent(level) + GeneratorUtil.IMPORT + " " + i.getCompleteImport()
 						+ GeneratorUtil.SEMICOLON + GeneratorUtil.NEW_LINE;
 			}
+			result += GeneratorUtil.NEW_LINE;
 		}
 
-		result += GeneratorUtil.NEW_LINE;
 
 		return result;
 	}
@@ -199,10 +204,6 @@ public class JavaGenerator implements CodeGenerator {
 	}
 
 	private String generateMethodBodyCode(int level, String... body) {
-		if (body == null) {
-			return GeneratorUtil.generateIndent(level) + GeneratorUtil.TODO_PLACEHOLDER + GeneratorUtil.NEW_LINE;
-		}
-
 		String bodyString = "";
 		for (String b : body) {
 			bodyString += GeneratorUtil.generateIndent(level) + b + GeneratorUtil.NEW_LINE;

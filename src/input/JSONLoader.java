@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import generator.GeneratorUtil;
 import io.reader.JSONReader;
 import model.Field;
 import model.ItemDescriptor;
@@ -52,7 +53,7 @@ public class JSONLoader {
 			Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
 				@Override
 				public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-				if (!attrs.isDirectory() && file.toFile().getName().endsWith("l1e1test.json")) {
+				if (!attrs.isDirectory() && file.toFile().getName().endsWith(".json")) {
 						files.add(file.toFile());
 					}
 					return FileVisitResult.CONTINUE;
@@ -63,10 +64,13 @@ public class JSONLoader {
 	}
 
 	private static Package createPackage(File directory, File file) {
+		if (file.getParentFile().getAbsolutePath().length() <= directory.getAbsolutePath().length()) {
+			return null;
+		}
+
 		String relevant = file.getParentFile().getAbsolutePath().substring(directory.getAbsolutePath().length() + 1);
 		String separator = Pattern.quote(System.getProperty("file.separator"));
 		String[] parts = relevant.split(separator);
-
 		return new Package(parts);
 	}
 
@@ -77,10 +81,12 @@ public class JSONLoader {
 		Package classPackage = _package;
 		String name = nameParts[nameParts.length - 1];
 		if (nameParts.length > 1) {
-			String[] parts = new String[_package.getParts().length + nameParts.length - 1];
+			String[] parts = new String[(_package != null ? _package.getParts().length : 0) + nameParts.length - 1];
 			int p_counter = 0;
-			for (String p : _package.getParts()) {
-				parts[p_counter++] = p;
+			if (_package != null) {
+				for (String p : _package.getParts()) {
+					parts[p_counter++] = p;
+				}
 			}
 			for (int i = 0; i < nameParts.length - 1; i++) {
 				parts[p_counter++] = nameParts[i];
@@ -156,6 +162,8 @@ public class JSONLoader {
 			_class.setMethods(arrayMethods);
 		}
 
+		System.out.println(String.format("Class %s loaded", _class.getFullName()));
+
 		return _class;
 	}
 
@@ -197,6 +205,8 @@ public class JSONLoader {
 			}
 			method.setParameter(params);
 		}
+
+		method.setBody(GeneratorUtil.TODO_PLACEHOLDER);
 
 		return method;
 	}
