@@ -11,7 +11,7 @@ public class Package {
 		return parts;
 	}
 
-	public void setParts(String[] parts) {
+	public void setParts(String... parts) {
 		this.parts = parts;
 	}
 

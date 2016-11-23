@@ -1,0 +1,80 @@
+[
+  {
+    "class": "Encryption",
+    "constructors": [
+      {
+        "modifiers": [
+          "public"
+        ],
+        "parameters": [ ]  
+      }
+    ],
+    
+    "fields": {
+      "imp": "Cipher"
+    },
+   
+    "methods": {
+      "encrypt": {
+        "parameters": ["String", "byte" ],
+        "returnType": "String"
+      },
+      "decrypt": {
+        "parameters": ["String", "byte" ],
+        "returnType": "String"
+      }
+    }
+  },
+  
+  {
+    "class": "EnterpriseEncryption",
+    "superclass": "Encryption",
+    "constructors": [
+      {
+        "modifiers": [
+          "public"
+        ],
+        "parameters": [ ]  
+      }
+    ],
+    
+    "fields": {},
+   
+    "methods": {
+      "encrypt": {
+        "parameters": ["String", "byte" ],
+        "returnType": "String"
+      },
+      "decrypt": {
+        "parameters": ["String", "byte" ],
+        "returnType": "String"
+      }
+    }
+  },
+
+  {
+    "class": "PersonalEncryption",
+    "superclass": "Encryption",
+    "constructors": [
+      {
+        "modifiers": [
+          "public"
+        ],
+        "parameters": [ ]  
+      }
+    ],
+    
+    "fields": {},
+   
+    "methods": {
+      "encrypt": {
+        "parameters": ["String", "byte" ],
+        "returnType": "String"
+      },
+      "decrypt": {
+        "parameters": ["String", "byte" ],
+        "returnType": "String"
+      }
+    }
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "class": "MeatPizza",
+    "superclass": "Pizza",
+    "fields": {
+    "ingredientFactory": "PizzaToppingFactory"
+    },
+    "methods": {
+      "prepare": {
+        "parameters": [
+        ],
+        "returnType": "void"
+      }
+    },
+    "constructors": [
+      {
+        "modifiers": [
+          "public"
+        ],
+        "parameters": [
+          "PizzaToppingFactory"
+        ]
+      }
+    ]
+  },
+  {
+    "class": "Pizza",
+    "fields": {
+      "dough": "Dough",
+      "sauce": "Sauce",
+      "cheese": "Cheese",
+      "pepperoni": "Pepperoni",
+      "clam": "Clams",
+      "meat": "Meat"
+    }
+  }
+]

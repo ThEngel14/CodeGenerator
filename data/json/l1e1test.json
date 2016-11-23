@@ -1,0 +1,67 @@
+[
+  {
+    "class": "Directory",
+    "superclass": "FileSystemObject",
+    "fields": {
+      "children": "List<FileSystemObject>"
+    },
+    "methods": {
+      "addChild": {
+        "parameters": [
+          "FileSystemObject"
+        ],
+        "returnType": "void"
+      },
+      "removeChild": {
+        "parameters": [
+          "FileSystemObject"
+        ],
+        "returnType": "void"
+      },
+      "getChildren": {
+        "parameters": [ ],
+      	"returnType": "List"
+      }
+    }
+  },
+  {
+    "class": "FileSystemObject",
+    "fields": {
+      "name": "String",
+    },
+    "methods": { 
+	    "printName": {
+	        "parameters": [
+	          "int"
+	        ],
+	        "returnType": "void"
+	      },
+	      "getName": {
+	        "parameters": [ ],
+	        "returnType": "String"
+	      },
+	      "list": {
+	        "parameters": [
+	          "int"
+	        ],
+	        "returnType": "void"
+	      }
+    }
+  },
+  {
+    "class": "File",
+    "superclass": "FileSystemObject",
+    "fields": { },
+    "methods": { },
+    "constructors": [
+      {
+        "modifiers": [
+          "public"
+        ],
+        "parameters": [
+          "String"
+        ]
+      }
+    ]
+  }
+]

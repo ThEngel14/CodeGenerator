@@ -1,0 +1,20 @@
+[
+  {
+    "class": "ThermoAdapter",
+    "constructors": [
+      {
+        "modifiers": [
+          "public"
+        ],
+        "parameters": [ ]  
+      }
+    ],
+    "interfaces": ["ThermoInterface"],
+    "methods": {
+      "getTempC": {
+        "parameters": [ ],
+        "returnType": "double"
+      }
+    }
+  }
+]

@@ -1,0 +1,121 @@
+[
+  {
+    "class": "MusicPlayer",
+    "constructors": [
+      {
+        "modifiers": [
+          "public"
+        ],
+        "parameters": [ ]  
+      }
+    ],
+    
+    "fields": {
+      "currentState": "State"
+    },
+   
+    "methods": {
+      "setCurrentState": {
+        "parameters": [ "State" ],
+        "returnType": "void"
+      },
+      "getCurrentState": {
+        "parameters": [  ],
+        "returnType": "State"
+      },
+      "handle": {
+        "parameters": [ "Event" ],
+        "returnType": "void"
+      },
+      "playMusic": {
+        "parameters": [ ],
+        "returnType": "void"
+      },
+       "pauseMusic": {
+        "parameters": [ ],
+        "returnType": "void"
+      },
+      "turnOn": {
+        "parameters": [ ],
+        "returnType": "void"
+      },
+       "turnOff": {
+        "parameters": [ ],
+        "returnType": "void"
+      }
+    }
+  },
+  {
+    "class": "Inactive",
+    "interfaces": ["State"],
+    "constructors": [],
+    
+    "fields": {},
+   
+    "methods": {
+      "entry": {
+        "parameters": [ ],
+        "returnType": "void"
+      },
+      "exit": {
+        "parameters": [ ],
+        "returnType": "void"
+      }
+    }
+  },
+  {
+    "class": "On",
+    "interfaces": ["State"],
+    "constructors": [],
+    
+    "fields": {},
+   
+    "methods": {
+      "entry": {
+        "parameters": [ ],
+        "returnType": "void"
+      },
+      "exit": {
+        "parameters": [ ],
+        "returnType": "void"
+      }
+    }
+  },
+  {
+    "class": "Paused",
+    "interfaces": ["State"],
+    "constructors": [],
+    
+    "fields": {},
+   
+    "methods": {
+      "entry": {
+        "parameters": [ ],
+        "returnType": "void"
+      },
+      "exit": {
+        "parameters": [ ],
+        "returnType": "void"
+      }
+    }
+  },
+  {
+    "class": "PlayingMusic",
+    "interfaces": ["State"],
+    "constructors": [],
+    
+    "fields": {},
+   
+    "methods": {
+      "entry": {
+        "parameters": [ ],
+        "returnType": "void"
+      },
+      "exit": {
+        "parameters": [ ],
+        "returnType": "void"
+      }
+    }
+  }
+ 
+]

@@ -1,0 +1,124 @@
+[
+  {
+    "class": "PizzaToppingFactory",
+    "methods": {
+      "createDough": {
+        "parameters": [
+        ],
+        "returnType": "Dough"
+      },
+      "createSauce": {
+        "parameters": [
+        ],
+        "returnType": "Sauce"
+      },
+      "createCheese": {
+        "parameters": [
+        ],
+        "returnType": "Cheese"
+      },
+      "createVeggies": {
+        "parameters": [
+        ],
+        "returnType": "Veggies[]"
+      },
+      "createPepperoni": {
+        "parameters": [
+        ],
+        "returnType": "Pepperoni"
+      },
+      "createClam": {
+        "parameters": [
+        ],
+        "returnType": "Clams"
+      },
+      "createMeat": {
+        "parameters": [
+        ],
+        "returnType": "Meat"
+      }
+    }
+  },
+  {
+    "class": "NYPizzaToppingFactory",
+    "interface": "PizzaToppingFactory",
+    "methods": {
+      "createDough": {
+        "parameters": [
+        ],
+        "returnType": "Dough"
+      },
+      "createSauce": {
+        "parameters": [
+        ],
+        "returnType": "Sauce"
+      },
+      "createCheese": {
+        "parameters": [
+        ],
+        "returnType": "Cheese"
+      },
+      "createVeggies": {
+        "parameters": [
+        ],
+        "returnType": "Veggies[]"
+      },
+      "createPepperoni": {
+        "parameters": [
+        ],
+        "returnType": "Pepperoni"
+      },
+      "createClam": {
+        "parameters": [
+        ],
+        "returnType": "Clams"
+      },
+      "createMeat": {
+        "parameters": [
+        ],
+        "returnType": "Meat"
+      }
+    }
+  },
+  {
+    "class": "ChicagoPizzaToppingFactory",
+	"interface": "PizzaToppingFactory",
+    "methods": {
+      "createDough": {
+        "parameters": [
+        ],
+        "returnType": "Dough"
+      },
+      "createSauce": {
+        "parameters": [
+        ],
+        "returnType": "Sauce"
+      },
+      "createCheese": {
+        "parameters": [
+        ],
+        "returnType": "Cheese"
+      },
+      "createVeggies": {
+        "parameters": [
+        ],
+        "returnType": "Veggies[]"
+      },
+      "createPepperoni": {
+        "parameters": [
+        ],
+        "returnType": "Pepperoni"
+      },
+      "createClam": {
+        "parameters": [
+        ],
+        "returnType": "Clams"
+      },
+      "createMeat": {
+        "parameters": [
+        ],
+        "returnType": "Meat"
+      }
+    }
+  }
+]

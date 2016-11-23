@@ -1,0 +1,143 @@
+[
+  {
+    "class": "Client",
+    "fields": {
+    	"frame": "JFrame",
+    	"contentPane": "JPanel",
+        "lamp": "Light",
+        "lightSwitch": "Switch",
+        "btnUp": "JButton",
+        "btnDown": "JButton",
+        "lightPanel": "JPanel"
+      },
+      
+      "methods": {
+          "init": {
+            "parameters": [
+              
+            ],
+            "returnType": "void"
+          }
+        }
+  },
+  {
+    "class": "FlipDownCommand",
+    "superclass": "LightSwitchCommand",
+    "constructors": [
+    {
+      "modifiers": [
+        "public"
+      ],
+      "parameters": [
+        "Light"
+    ]  
+    }
+    ],
+    "methods": {
+        "execute": {
+          "parameters": [
+            
+          ],
+          "returnType": "void"
+        }
+      }
+  },
+  {
+    "class": "FlipUpCommand",
+    "superclass": "LightSwitchCommand",
+    "constructors": [
+                     {
+                       "modifiers": [
+                         "public"
+                       ],
+                       "parameters": [
+                         "Light"
+                     ]  
+                     }
+                     ],
+                     "methods": {
+                         "execute": {
+                           "parameters": [
+                             
+                           ],
+                           "returnType": "void"
+                         }
+                       }
+  },
+  {
+	  "class": "Light",
+	  "fields": {
+	        "lightPanel": "JPanel"
+	      },
+	      "constructors": [
+	                       {
+	                         "modifiers": [
+	                           "public"
+	                         ],
+	                         "parameters": [
+	                           "JPanel"
+	                       ]  
+	                       }
+	                       ],
+	      "methods": {
+	          "turnOn": {
+	            "parameters": [
+	              
+	            ],
+	            "returnType": "void"
+	          },
+	          "turnOff": {
+		            "parameters": [
+		              
+		            ],
+		            "returnType": "void"
+		          },
+	        }
+  },
+  {
+	  "class": "LightSwitchCommand",
+	  "fields": {
+	        "theLight": "Light"
+	      },
+	      "methods": {
+	          "execute": {
+	            "parameters": [
+	              
+	            ],
+	            "returnType": "void"
+	          }
+	        }
+  },
+  {
+	  "class": "Switch",
+	  "fields": {
+	        "flipUpCommand": "LightSwitchCommand",
+	        "flipDownCommand": "LightSwitchCommand"
+	      },
+	      "constructors": [
+	                       {
+	                         "modifiers": [
+	                           "public"
+	                         ],
+	                         "parameters": [
+	                           "LightSwitchCommand",
+	                           "LightSwitchCommand"
+	                       ]  
+	                       }
+	                       ],
+	      "methods": {
+	          "flipUp": {
+	            "parameters": [
+	              
+	            ],
+	            "returnType": "void"
+	          },
+	          "flipDown": {
+		            "parameters": [
+		              
+		            ],
+		            "returnType": "void"
+		          }
+	        }
+  }
+]

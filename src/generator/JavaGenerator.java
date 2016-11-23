@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import model.Field;
+import model.ItemDescriptor;
 import model.Method;
 import model.Package;
 import model.Parameter;
@@ -184,13 +185,13 @@ public class JavaGenerator implements CodeGenerator {
 		return result;
 	}
 
-	private String generatePreparedInterfacesString(Interface... interfaces) {
+	private String generatePreparedInterfacesString(ItemDescriptor... interfaces) {
 		if (interfaces == null || interfaces.length == 0) {
 			return null;
 		}
 		
 		Collection<String> prepInterfaces = new ArrayList<>(interfaces.length);
-		for (Interface i : interfaces) {
+		for (ItemDescriptor i : interfaces) {
 			prepInterfaces.add(i.getName());
 		}
 

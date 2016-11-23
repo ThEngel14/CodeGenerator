@@ -1,4 +1,4 @@
-package writer;
+package io.writer;
 
 import java.io.File;
 import java.io.PrintWriter;

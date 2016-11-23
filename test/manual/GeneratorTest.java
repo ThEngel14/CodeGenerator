@@ -6,7 +6,9 @@ import org.junit.Test;
 
 import generator.CodeGenerator;
 import generator.JavaGenerator;
+import io.writer.Writer;
 import model.Field;
+import model.ItemDescriptor;
 import model.Method;
 import model.Modifier;
 import model.Package;
@@ -18,7 +20,6 @@ import model.imports.ImportItem;
 import model.imports.PackageImport;
 import model.writable.Class;
 import model.writable.Interface;
-import writer.Writer;
 
 public class GeneratorTest {
 
@@ -27,16 +28,16 @@ public class GeneratorTest {
 		Package _package = new Package("data", "generated");
 		Class c = new Class(_package, Modifier.PUBLIC, "TestClass");
 
-		Class superClass = new Class(new Package("model"), Modifier.PUBLIC, "Variable");
+		ItemDescriptor superClass = new ItemDescriptor(new Package("model"), "Variable");
 
 		ImportItem[] importItems = new ImportItem[3];
 		importItems[0] = new PackageImport(new Package("java", "util"));
 		importItems[1] = new ClassImport(superClass);
-		importItems[2] = new ClassImport(new Class(new Package("model", "imports"), Modifier.PUBLIC, "ImportItem"));
+		importItems[2] = new ClassImport(new ItemDescriptor(new Package("model", "imports"), "ImportItem"));
 		c.setImportItems(importItems);
 
 		c.setSuperClass(superClass);
-		c.setInterfaces(new Interface(new Package("model", "imports"), "ImportItem"));
+		c.setInterfaces(new ItemDescriptor(new Package("model", "imports"), "ImportItem"));
 
 		Field[] fields = new Field[2];
 		fields[0] = new Field(Modifier.PRIVATE, new Type("int"), new Variable("counter"));
@@ -61,10 +62,10 @@ public class GeneratorTest {
 
 		ImportItem[] importItems = new ImportItem[2];
 		importItems[0] = new PackageImport(new Package("java", "util"));
-		importItems[1] = new ClassImport(new Class(new Package("model", "imports"), Modifier.PUBLIC, "ImportItem"));
+		importItems[1] = new ClassImport(new ItemDescriptor(new Package("model", "imports"), "ImportItem"));
 		_interface.setImportItems(importItems);
 
-		_interface.setInterfaces(new Interface(new Package("model", "imports"), "ImportItem"));
+		_interface.setInterfaces(new ItemDescriptor(new Package("model", "imports"), "ImportItem"));
 
 		Method[] methods = new Method[1];
 		methods[0] = new Method(null, new Type("String"), "someMethod");

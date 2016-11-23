@@ -20,4 +20,14 @@ public enum Modifier {
 	public String toString() {
 		return this.name;
 	}
+
+	public static Modifier getModifierByName(String name) {
+		for (Modifier m : values()) {
+			if (m.getName().equals(name)) {
+				return m;
+			}
+		}
+
+		return null;
+	}
 }

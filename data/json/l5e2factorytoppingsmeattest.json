@@ -1,0 +1,45 @@
+[
+  {
+    "class": "Meat",
+    "methods": {
+      "toString": {
+        "parameters": [
+        ],
+        "returnType": "String"
+      }
+    }
+  },
+  {
+    "class": "Ham",
+    "interface": "Meat",
+    "methods": {
+      "toString": {
+        "parameters": [
+        ],
+        "returnType": "String"
+      }
+    }
+  },
+  {
+    "class": "Chicken",
+    "interface": "Meat",
+    "methods": {
+      "toString": {
+        "parameters": [
+        ],
+        "returnType": "String"
+      }
+    }
+  },
+  {
+    "class": "Weisswurst",
+    "interface": "Meat",
+    "methods": {
+      "toString": {
+        "parameters": [
+        ],
+        "returnType": "String"
+      }
+    }
+  }
+]

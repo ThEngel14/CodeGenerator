@@ -1,19 +1,19 @@
 package model.imports;
 
-import model.writable.Class;
+import model.ItemDescriptor;
 
 public class ClassImport implements ImportItem {
-	private Class _class;
+	private ItemDescriptor _class;
 
-	public ClassImport(Class _class) {
+	public ClassImport(ItemDescriptor _class) {
 		this._class = _class;
 	}
 
-	public Class getImportClass() {
+	public ItemDescriptor getImportClass() {
 		return _class;
 	}
 
-	public void setImportClass(Class _class) {
+	public void setImportClass(ItemDescriptor _class) {
 		this._class = _class;
 	}
 

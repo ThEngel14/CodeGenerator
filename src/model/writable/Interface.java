@@ -1,5 +1,6 @@
 package model.writable;
 
+import model.ItemDescriptor;
 import model.Method;
 import model.Modifier;
 import model.Package;
@@ -11,7 +12,7 @@ public class Interface implements Writable {
 	private ImportItem[] importItems;
 	private Modifier modifier;
 	private String name;
-	private Interface[] interfaces;
+	private ItemDescriptor[] interfaces;
 	private Method[] methods;
 
 	public Interface(Package _package, String name) {
@@ -58,11 +59,11 @@ public class Interface implements Writable {
 		this.name = name;
 	}
 
-	public Interface[] getInterfaces() {
+	public ItemDescriptor[] getInterfaces() {
 		return interfaces;
 	}
 
-	public void setInterfaces(Interface... interfaces) {
+	public void setInterfaces(ItemDescriptor... interfaces) {
 		this.interfaces = interfaces;
 	}
 

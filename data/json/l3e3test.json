@@ -1,0 +1,38 @@
+[
+  {
+    "class": "Firewall",
+    "constructors": [
+      {
+        "modifiers": [
+          "public"
+        ],
+        "parameters": [ "int[]"]  
+      }
+    ],
+    
+    "interfaces": ["ConnectionInterface"], 
+    
+    "fields": {
+     	"allowedPorts" : "int[]"
+    },
+   
+    "methods": {
+      "getAllowedPorts" : {
+        "parameters": [],
+        "returnType": "int[]"
+      },
+      "open" : {
+	    "parameters": [ "String", "int" ],
+	    "returnType": "void"
+	  },
+	  "close" : {
+	    "parameters": [],
+	    "returnType": "void"
+	  }, 
+	  "isConnected": {
+	  	"parameters": [], 
+	  	"returnType": "boolean"
+    }
+   }
+  }
+]

@@ -1,0 +1,43 @@
+[
+  {
+    "class": "observers.KelvinGUI",
+    "superclass": "TemperatureGUI",
+    "constructors": [
+      {
+        "modifiers": [
+          "public"
+        ],
+        "parameters": [ 
+        	"TemperatureModel",
+        	"Point"
+        	
+        ]  
+      }
+    ],
+    
+    "fields": {},
+   
+    "methods": {
+      "update": {
+        "parameters": [ "Observable", "Object" ],
+        "returnType": "void"
+      }
+    }
+  },
+  {
+    "class": "model.TemperatureModel",
+      
+    "fields": {},
+   
+    "methods": {
+      "getK": {
+        "parameters": [ ],
+        "returnType": "double"
+      },
+      "setK": {
+        "parameters": ["double"],
+        "returnType": "void"
+      }
+    }
+  }
+]

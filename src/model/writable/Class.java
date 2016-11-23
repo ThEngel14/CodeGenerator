@@ -1,5 +1,6 @@
 package model.writable;
 
+import model.ItemDescriptor;
 import model.Field;
 import model.Method;
 import model.Modifier;
@@ -7,13 +8,13 @@ import model.Package;
 import model.imports.ImportItem;
 import model.util.EqualsUtil;
 
-public class Class implements Writable {
+public class Class implements Writable, Comparable<Class> {
 	private Package _package;
 	private ImportItem[] importItems;
 	private Modifier modifier;
 	private String name;
-	private Class superClass;
-	private Interface[] interfaces;
+	private ItemDescriptor superClass;
+	private ItemDescriptor[] interfaces;
 	private Field[] fields;
 	private Method[] methods;
 
@@ -63,19 +64,19 @@ public class Class implements Writable {
 		this.name = name;
 	}
 
-	public Class getSuperClass() {
+	public ItemDescriptor getSuperClass() {
 		return superClass;
 	}
 
-	public void setSuperClass(Class superClass) {
+	public void setSuperClass(ItemDescriptor superClass) {
 		this.superClass = superClass;
 	}
 
-	public Interface[] getInterfaces() {
+	public ItemDescriptor[] getInterfaces() {
 		return interfaces;
 	}
 
-	public void setInterfaces(Interface... interfaces) {
+	public void setInterfaces(ItemDescriptor... interfaces) {
 		this.interfaces = interfaces;
 	}
 
@@ -117,5 +118,15 @@ public class Class implements Writable {
 
 	public String getFullName() {
 		return String.format("%s.%s", _package.getCompleteString(), name);
+	}
+
+	@Override
+	public int compareTo(Class o) {
+		return getFullName().compareTo(o.getFullName());
+	}
+
+	@Override
+	public String toString() {
+		return getFullName();
 	}
 }
