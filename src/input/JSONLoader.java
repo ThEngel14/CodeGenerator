@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -34,7 +33,7 @@ public class JSONLoader {
 		Collection<Class> classes = new ArrayList<>();
 
 		for (File f : findJSONFiles(directory)) {
-			Package _package = createPackage(directory, f);
+			Package _package = Package.createPackage(directory, f);
 
 			JSONArray arr = JSONReader.readJSON(f);
 			for (int i = 0; i < arr.length(); i++) {
@@ -61,17 +60,6 @@ public class JSONLoader {
 			});
 
 		return files;
-	}
-
-	private static Package createPackage(File directory, File file) {
-		if (file.getParentFile().getAbsolutePath().length() <= directory.getAbsolutePath().length()) {
-			return null;
-		}
-
-		String relevant = file.getParentFile().getAbsolutePath().substring(directory.getAbsolutePath().length() + 1);
-		String separator = Pattern.quote(System.getProperty("file.separator"));
-		String[] parts = relevant.split(separator);
-		return new Package(parts);
 	}
 
 	private static Class createClassFromJSON(Package _package, JSONObject obj) {

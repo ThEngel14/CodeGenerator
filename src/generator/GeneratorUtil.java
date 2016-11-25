@@ -14,6 +14,7 @@ public class GeneratorUtil {
 	public static final String INTERFACE = "interface";
 	public static final String EXTENDS = "extends";
 	public static final String IMPLEMENTS = "implements";
+	public static final String RETURN = "return";
 
 	public static String generateIndent(int level) {
 		String indent = "";

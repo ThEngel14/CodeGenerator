@@ -9,6 +9,7 @@ public class PackageImport implements ImportItem {
 		this._package = _package;
 	}
 
+	@Override
 	public Package getPackage() {
 		return _package;
 	}
@@ -20,5 +21,19 @@ public class PackageImport implements ImportItem {
 	@Override
 	public String getCompleteImport() {
 		return String.format("%s.*", _package.getCompleteString());
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof PackageImport) {
+			return _package.equals(((PackageImport) obj).getPackage());
+		}
+
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return _package.hashCode();
 	}
 }

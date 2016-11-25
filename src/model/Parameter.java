@@ -25,11 +25,14 @@ public class Parameter {
 		this.variable = variable;
 	}
 	
+	public boolean equalContent(Parameter param) {
+		return type.equals(param.getType()) && variable.equals(param.getVariable());
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if(obj instanceof Parameter) {
-			Parameter param = (Parameter) obj;
-			return type.equals(param.getType()) && variable.equals(param.getVariable());
+			return type.equals(((Parameter) obj).getType());
 		}
 		
 		return false;
@@ -37,6 +40,6 @@ public class Parameter {
 	
 	@Override
 	public int hashCode() {
-		return type.hashCode() * variable.hashCode();
+		return type.hashCode();
 	}
 }

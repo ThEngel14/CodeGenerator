@@ -1,6 +1,7 @@
 package model.imports;
 
 import model.ItemDescriptor;
+import model.Package;
 
 public class ClassImport implements ImportItem {
 	private ItemDescriptor _class;
@@ -20,5 +21,24 @@ public class ClassImport implements ImportItem {
 	@Override
 	public String getCompleteImport() {
 		return _class.getFullName();
+	}
+
+	@Override
+	public Package getPackage() {
+		return _class.getPackage();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof ClassImport) {
+			return _class.equals(((ClassImport) obj).getImportClass());
+		}
+
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return _class.hashCode();
 	}
 }

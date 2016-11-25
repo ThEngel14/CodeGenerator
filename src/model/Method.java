@@ -1,5 +1,9 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+
 import model.util.EqualsUtil;
 
 public class Method {
@@ -11,7 +15,7 @@ public class Method {
 	private String name;
 	private Parameter[] parameter;
 	private boolean hasBody;
-	private String[] body;
+	private Collection<String> body;
 
 	public Method(Modifier modifier, Type returnType, String name, Parameter... parameters) {
 		this.modifier = modifier;
@@ -89,23 +93,27 @@ public class Method {
 		this.hasBody = hasBody;
 	}
 
-	public String[] getBody() {
+	public Collection<String> getBody() {
 		return body;
 	}
 
 	public void setBody(String... body) {
-		this.body = body;
+		this.body = new ArrayList<String>(Arrays.asList(body));
+	}
+
+	public boolean equalContent(Method method) {
+			return EqualsUtil.equals(modifier, method.getModifier())
+					&& EqualsUtil.equals(returnType, method.getReturnType())
+					&& _abstract == method.isAbstract() && _static == method.isStatic() && _final == method.isFinal()
+					&& name.equals(method.getName()) && EqualsUtil.equals(parameter, method.getParameter())
+					&& hasBody == method.hasBody() && EqualsUtil.equals(body, method.getBody());
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Method) {
 			Method method = (Method) obj;
-			return EqualsUtil.equals(modifier, method.getModifier())
-					&& EqualsUtil.equals(returnType, method.getReturnType())
-					&& _abstract == method.isAbstract() && _static == method.isStatic() && _final == method.isFinal()
-					&& name.equals(method.getName()) && EqualsUtil.equals(parameter, method.getParameter())
-					&& hasBody == method.hasBody() && EqualsUtil.equals(body, method.getBody());
+			return name.equals(method.getName()) && EqualsUtil.equalsCollection(parameter, method.getParameter());
 		}
 
 		return false;

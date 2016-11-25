@@ -31,7 +31,6 @@ public class MainWindow extends JFrame {
 		setSize(800, 200);
 		setLocationRelativeTo(null);
 
-		context = new Context();
 		inputDir = new JTextField();
 		outputDir = new JTextField();
 		inputFChooser = new SpecifiedFileChooser();
@@ -111,9 +110,11 @@ public class MainWindow extends JFrame {
 				}
 
 				try {
-					context.loadClasses(new File(inputDir.getText().trim()));
+					Context context = new Context(new File(inputDir.getText().trim()),
+							new File(outputDir.getText().trim()));
+					context.loadClasses();
 					context.processClasses();
-					context.writeClasses(new File(outputDir.getText().trim()));
+					context.writeClasses();
 
 					JOptionPane.showMessageDialog(MainWindow.this, "Code generated successfully.", "Information",
 							JOptionPane.INFORMATION_MESSAGE);

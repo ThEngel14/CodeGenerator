@@ -88,7 +88,7 @@ public class JavaGenerator implements CodeGenerator {
 			result += GeneratorUtil.SEMICOLON;
 		} else {
 			result += " {" + GeneratorUtil.NEW_LINE;
-			if (method.getBody() != null && method.getBody().length > 0) {
+			if (method.getBody() != null && !method.getBody().isEmpty()) {
 				result += generateMethodBodyCode(level + 1, method.getBody());
 			}
 			result += GeneratorUtil.generateIndent(level) + "}";
@@ -97,12 +97,12 @@ public class JavaGenerator implements CodeGenerator {
 		return result;
 	}
 
-	private String generateMultipleMethodCode(int level, Method... methods) {
-		if (methods == null || methods.length == 0) {
+	private String generateMultipleMethodCode(int level, Collection<Method> methods) {
+		if (methods == null || methods.isEmpty()) {
 			return null;
 		}
 
-		Collection<String> methodsString = new ArrayList<>(methods.length);
+		Collection<String> methodsString = new ArrayList<>(methods.size());
 		for (Method m : methods) {
 			methodsString.add(generateMethodCode(level, m));
 		}
@@ -126,7 +126,7 @@ public class JavaGenerator implements CodeGenerator {
 		result += "{" + GeneratorUtil.NEW_LINE;
 		
 		// Fields
-		if(_class.getFields() != null && _class.getFields().length > 0) {
+		if (_class.getFields() != null && !_class.getFields().isEmpty()) {
 			for(Field f : _class.getFields()) {
 				result += generateFieldCode(level + 1, f) + GeneratorUtil.NEW_LINE;
 			}
@@ -178,7 +178,7 @@ public class JavaGenerator implements CodeGenerator {
 
 
 		// Imports
-		if (writable.getImportItems() != null && writable.getImportItems().length > 0) {
+		if (writable.getImportItems() != null && !writable.getImportItems().isEmpty()) {
 			for (ImportItem i : writable.getImportItems()) {
 				result += GeneratorUtil.generateIndent(level) + GeneratorUtil.IMPORT + " " + i.getCompleteImport()
 						+ GeneratorUtil.SEMICOLON + GeneratorUtil.NEW_LINE;
@@ -190,12 +190,12 @@ public class JavaGenerator implements CodeGenerator {
 		return result;
 	}
 
-	private String generatePreparedInterfacesString(ItemDescriptor... interfaces) {
-		if (interfaces == null || interfaces.length == 0) {
+	private String generatePreparedInterfacesString(Collection<ItemDescriptor> interfaces) {
+		if (interfaces == null || interfaces.isEmpty()) {
 			return null;
 		}
 		
-		Collection<String> prepInterfaces = new ArrayList<>(interfaces.length);
+		Collection<String> prepInterfaces = new ArrayList<>(interfaces.size());
 		for (ItemDescriptor i : interfaces) {
 			prepInterfaces.add(i.getName());
 		}
@@ -203,7 +203,7 @@ public class JavaGenerator implements CodeGenerator {
 		return String.join(", ", prepInterfaces);
 	}
 
-	private String generateMethodBodyCode(int level, String... body) {
+	private String generateMethodBodyCode(int level, Collection<String> body) {
 		String bodyString = "";
 		for (String b : body) {
 			bodyString += GeneratorUtil.generateIndent(level) + b + GeneratorUtil.NEW_LINE;

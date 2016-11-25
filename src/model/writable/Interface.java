@@ -1,5 +1,11 @@
 package model.writable;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 import model.ItemDescriptor;
 import model.Method;
 import model.Modifier;
@@ -9,19 +15,19 @@ import model.util.EqualsUtil;
 
 public class Interface implements Writable {
 	private Package _package;
-	private ImportItem[] importItems;
+	private Set<ImportItem> importItems;
 	private Modifier modifier;
 	private String name;
-	private ItemDescriptor[] interfaces;
-	private Method[] methods;
+	private Collection<ItemDescriptor> interfaces;
+	private Collection<Method> methods;
 
 	public Interface(Package _package, String name) {
 		this._package = _package;
 		this.name = name;
-		importItems = null;
+		importItems = new HashSet<>();
 		modifier = Modifier.PUBLIC;
-		interfaces = null;
-		methods = null;
+		interfaces = new ArrayList<>();
+		methods = new ArrayList<>();
 	}
 
 	@Override
@@ -34,12 +40,12 @@ public class Interface implements Writable {
 	}
 
 	@Override
-	public ImportItem[] getImportItems() {
+	public Set<ImportItem> getImportItems() {
 		return importItems;
 	}
 
 	public void setImportItems(ImportItem... importItems) {
-		this.importItems = importItems;
+		this.importItems = new HashSet<>(Arrays.asList(importItems));
 	}
 
 	public Modifier getModifier() {
@@ -59,20 +65,20 @@ public class Interface implements Writable {
 		this.name = name;
 	}
 
-	public ItemDescriptor[] getInterfaces() {
+	public Collection<ItemDescriptor> getInterfaces() {
 		return interfaces;
 	}
 
 	public void setInterfaces(ItemDescriptor... interfaces) {
-		this.interfaces = interfaces;
+		this.interfaces = new ArrayList<>(Arrays.asList(interfaces));
 	}
 
-	public Method[] getMethods() {
+	public Collection<Method> getMethods() {
 		return methods;
 	}
 
-	public void setMethods(Method[] methods) {
-		this.methods = methods;
+	public void setMethods(Method... methods) {
+		this.methods = new ArrayList<>(Arrays.asList(methods));
 	}
 
 	public boolean equalContent(Interface i) {

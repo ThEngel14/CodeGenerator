@@ -1,5 +1,11 @@
 package model.writable;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 import model.Field;
 import model.ItemDescriptor;
 import model.Method;
@@ -10,23 +16,23 @@ import model.util.EqualsUtil;
 
 public class Class implements Writable, Comparable<Class> {
 	private Package _package;
-	private ImportItem[] importItems;
+	private Set<ImportItem> importItems;
 	private Modifier modifier;
 	private String name;
 	private ItemDescriptor superClass;
-	private ItemDescriptor[] interfaces;
-	private Field[] fields;
-	private Method[] methods;
+	private Collection<ItemDescriptor> interfaces;
+	private Collection<Field> fields;
+	private Collection<Method> methods;
 
 	public Class(Package _package, Modifier modifier, String name) {
 		this._package = _package;
 		this.modifier = modifier;
 		this.name = name;
-		importItems = null;
+		importItems = new HashSet<>();
 		superClass = null;
-		interfaces = null;
-		fields = null;
-		methods = null;
+		interfaces = new ArrayList<>();
+		fields = new ArrayList<>();
+		methods = new ArrayList<>();
 	}
 
 	@Override
@@ -39,12 +45,12 @@ public class Class implements Writable, Comparable<Class> {
 	}
 
 	@Override
-	public ImportItem[] getImportItems() {
+	public Set<ImportItem> getImportItems() {
 		return importItems;
 	}
 
 	public void setImportItems(ImportItem... importItems) {
-		this.importItems = importItems;
+		this.importItems = new HashSet<>(Arrays.asList(importItems));
 	}
 
 	public Modifier getModifier() {
@@ -72,28 +78,28 @@ public class Class implements Writable, Comparable<Class> {
 		this.superClass = superClass;
 	}
 
-	public ItemDescriptor[] getInterfaces() {
+	public Collection<ItemDescriptor> getInterfaces() {
 		return interfaces;
 	}
 
 	public void setInterfaces(ItemDescriptor... interfaces) {
-		this.interfaces = interfaces;
+		this.interfaces = new ArrayList<>(Arrays.asList(interfaces));
 	}
 
-	public Field[] getFields() {
+	public Collection<Field> getFields() {
 		return fields;
 	}
 
 	public void setFields(Field... fields) {
-		this.fields = fields;
+		this.fields = new ArrayList<>(Arrays.asList(fields));
 	}
 
-	public Method[] getMethods() {
+	public Collection<Method> getMethods() {
 		return methods;
 	}
 
 	public void setMethods(Method... methods) {
-		this.methods = methods;
+		this.methods = new ArrayList<>(Arrays.asList(methods));
 	}
 
 	public boolean equalContent(Class c) {
