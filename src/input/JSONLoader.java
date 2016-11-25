@@ -17,7 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import generator.GeneratorUtil;
-import io.reader.JSONReader;
+import io.reader.CustomFileReader;
 import model.Field;
 import model.ItemDescriptor;
 import model.Method;
@@ -35,7 +35,7 @@ public class JSONLoader {
 		for (File f : findJSONFiles(directory)) {
 			Package _package = Package.createPackage(directory, f);
 
-			JSONArray arr = JSONReader.readJSON(f);
+			JSONArray arr = CustomFileReader.readJSON(f);
 			for (int i = 0; i < arr.length(); i++) {
 				Class _class = createClassFromJSON(_package, arr.getJSONObject(i));
 				classes.add(_class);

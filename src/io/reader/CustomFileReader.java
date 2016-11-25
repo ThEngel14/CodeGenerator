@@ -7,8 +7,12 @@ import java.io.IOException;
 
 import org.json.JSONArray;
 
-public class JSONReader {
+public class CustomFileReader {
 	public static JSONArray readJSON(File file) throws IOException {
+		return new JSONArray(readFile(file));
+	}
+
+	public static String readFile(File file) throws IOException {
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 		String line = null;
 		StringBuilder stringBuilder = new StringBuilder();
@@ -20,7 +24,7 @@ public class JSONReader {
 				stringBuilder.append(ls);
 			}
 
-			return new JSONArray(stringBuilder.toString());
+			return stringBuilder.toString();
 		} finally {
 			reader.close();
 		}
