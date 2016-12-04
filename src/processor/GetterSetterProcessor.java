@@ -21,18 +21,17 @@ public class GetterSetterProcessor implements Processor {
 	public void processClass(Class _class) {
 		if (_class.getFields() != null && !_class.getFields().isEmpty()) {
 			for (Field field : _class.getFields()) {
-				addMethodIfNotExists(_class, createGetter(field));
+				addMethod(_class, createGetter(field));
 				if (!field.isFinal()) {
-					addMethodIfNotExists(_class, createSetter(field));
+					addMethod(_class, createSetter(field));
 				}
 			}
 		}
 	}
 
-	private void addMethodIfNotExists(Class _class, Method method) {
-		if (!_class.getMethods().contains(method)) {
-			_class.getMethods().add(method);
-		}
+	private void addMethod(Class _class, Method method) {
+		_class.getMethods().remove(method);
+		_class.getMethods().add(method);
 	}
 
 	private Method createGetter(Field field) {
@@ -54,7 +53,7 @@ public class GetterSetterProcessor implements Processor {
 		Method setter = new Method(Modifier.PUBLIC, new Type("void"), methodName,
 				new Parameter(field.getType(), field.getVariable()));
 		setter.setBody(String.format("this.%s = %s%s", field.getVariable().getName(),
-				setter.getParameter()[0].getVariable().getName(), GeneratorUtil.SEMICOLON));
+				setter.getParameter().get(0).getVariable().getName(), GeneratorUtil.SEMICOLON));
 
 		return setter;
 	}

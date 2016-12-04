@@ -131,6 +131,7 @@ public abstract class Writer {
 
 				for (Method m : _class.getMethods()) {
 					newFileContent += generator.generateMethodCode(1, m) + GeneratorUtil.NEW_LINE;
+					newFileContent += GeneratorUtil.NEW_LINE;
 				}
 
 				newFileContent += GeneratorUtil.generateIndent(1) + GeneratorUtil.END_PLACEHOLDER

@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.List;
 
 import model.util.EqualsUtil;
 
@@ -13,15 +13,21 @@ public class Method {
 	private boolean _static;
 	private boolean _final;
 	private String name;
-	private Parameter[] parameter;
+	private List<Parameter> parameter;
 	private boolean hasBody;
-	private Collection<String> body;
+	private List<String> body;
 
 	public Method(Modifier modifier, Type returnType, String name, Parameter... parameters) {
 		this.modifier = modifier;
 		this.returnType = returnType;
 		this.name = name;
-		this.parameter = parameters;
+		this.parameter = null;
+		if (parameters != null) {
+			parameter = new ArrayList<>();
+			for (Parameter p : parameters) {
+				parameter.add(p);
+			}
+		}
 		hasBody = true;
 		body = null;
 		_abstract = false;
@@ -77,11 +83,11 @@ public class Method {
 		this.name = name;
 	}
 
-	public Parameter[] getParameter() {
+	public List<Parameter> getParameter() {
 		return parameter;
 	}
 
-	public void setParameter(Parameter... parameter) {
+	public void setParameter(List<Parameter> parameter) {
 		this.parameter = parameter;
 	}
 
@@ -93,7 +99,7 @@ public class Method {
 		this.hasBody = hasBody;
 	}
 
-	public Collection<String> getBody() {
+	public List<String> getBody() {
 		return body;
 	}
 

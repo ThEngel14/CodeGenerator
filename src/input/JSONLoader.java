@@ -170,10 +170,13 @@ public class JSONLoader {
 
 		if (obj.has("parameters")) {
 			JSONArray jsonParams = obj.getJSONArray("parameters");
-			Parameter[] params = new Parameter[jsonParams.length()];
+			List<Parameter> params = new ArrayList<>(jsonParams.length());
 			HashMap<String, Integer> typeCount = new HashMap<>();
 			for (int i = 0; i < jsonParams.length(); i++) {
 				String type = jsonParams.getString(i);
+				if (type.toLowerCase().equals("void")) {
+					continue;
+				}
 
 				String variable = type.toLowerCase();
 				if (variable.equals(type)) {
@@ -183,7 +186,7 @@ public class JSONLoader {
 					variable += (typeCount.get(type) + 1);
 				}
 
-				params[i] = new Parameter(new Type(type), new Variable(variable));
+				params.add(new Parameter(new Type(type), new Variable(variable)));
 
 				int count = 0;
 				if (typeCount.containsKey(type)) {

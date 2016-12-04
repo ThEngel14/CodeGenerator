@@ -77,7 +77,7 @@ public class JavaGenerator implements CodeGenerator {
 			result += method.getReturnType().getName() + " ";
 		}
 
-		Collection<String> prepParameters = new ArrayList<>(method.getParameter().length);
+		Collection<String> prepParameters = new ArrayList<>(method.getParameter().size());
 		for (Parameter p : method.getParameter()) {
 			prepParameters.add(generateParameterCode(0, p));
 		}

@@ -25,7 +25,7 @@ public class ConstructorProcessor implements Processor {
 
 	private void processConstructorMethod(Class _class, Method constructor) {
 		if (_class.getFields() == null || _class.getFields().isEmpty() || constructor.getParameter() == null
-				|| constructor.getParameter().length == 0) {
+				|| constructor.getParameter().isEmpty()) {
 			return;
 		}
 		
